@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+psycopg2 = "*"
+django = "*"
+pillow = "*"
+social-auth-app-django = "*"
+requests = "*"
+python-social-auth = {extras = ["django"], version = "*"}
+python-dotenv = "*"
+celery = "*"
+djangorestframework = "*"
+generics = "*"
+
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"

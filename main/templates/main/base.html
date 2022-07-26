@@ -1,0 +1,147 @@
+{% load static %}
+
+{% now "d.m.Y H:m:s" as today_str %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<title>{% block title %}  {% endblock %}
+</title>
+
+<!-- Только CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Indie+Flower&display=swap" rel="stylesheet">
+
+    <link href="{% static 'fonts/serifgothicitcbybt_bold.ttf' %}" rel="stylesheet" media="screen">
+
+{#<link rel="stylesheet" href="{% static 'main/css/style.css' %}">#}
+{#    <link rel="stylesheet" href="{% static 'main/css/posts_detail.css' %}">#}
+{#    <link rel="stylesheet" href="{% static 'main/css/profile.css' %}">#}
+{#    <link rel="stylesheet" href="{% static 'main/css/accounts/login.css' %}">#}
+    <link rel="stylesheet" href="{% static 'main/css/posts/posts_list.css' %}">
+
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+
+
+    <div class="navbar navbar-dark help otstup">
+
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'posts_list' %}"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                    <circle cx="12" cy="13" r="4"></circle>
+                </svg><strong>Photo gallery</strong></a>
+
+
+
+
+
+            <div class="search-box">
+                <form method="get" id="search">
+                    {% csrf_token %}
+                    <input type="text" name="search" id="searchField" class="search-txt" placeholder="Search...">
+                    <a class="search-btn"><i class="fa-solid fa-magnifying-glass"></i> </a>
+                    <button type="submit" class="btn btn-sm btn-outline-secondary"></button>
+                </form>
+            </div>
+
+            {% block javascript %}
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+            <script>
+                $(document).ready(function() {
+                    $('#search').submit(function() {
+                        $.ajax({
+                            data: {
+                                search: $("#searchField").val(),
+                            },
+                            type: $(this).attr('method'),
+                            url: "{% url 'search' %}",
+                            // если успешно, то
+
+                            success: function(response) {
+                                let block = document.getElementById('list-posts');
+                                block.innerHTML = '';
+                                console.log('сработало')
+
+
+                                for (let i = 0; i < response.posts.length; i++) {
+
+
+                                    block.innerHTML += '<div class="card">' + '<img src="' + response.posts[i].photo + '">' + '<div class="infos">' + '<div class="title">' + response.posts[i].title  +
+                                        'Автор: ' + response.posts[i].author + '</div' + '<div class="sub">' + response.posts[i].created_at + '</div' +
+                                        '<br>' + '<div class="sub">' + response.posts[i].description + '</div>' + '<form action="/posts_like/" method="POST" class="ui form">' +
+                                        '{% csrf_token %}' + '<input type="hidden" name="post_id" value="' +  response.posts[i].id + '">' + '<button type="submit" class="btn btn-sm btn-outline-secondary">' +
+                                        '{% if user not in post.liked.all %}' + '<i class="fa-solid fa-heart white"></i>' + '{% else %}' + '<i class="fa-solid fa-heart"></i>' +
+                                        '{% endif %}' + '<strong class="white">' + response.posts[i].liked + '</strong>' + '</button>' +
+                                        '<strong class="white"><i class="fa-solid fa-comments"></i>' + response.posts[i].comments.all.count + '</strong' +
+                                        '</form>' + '</div>' + '<div class="label"><a href="' + response.posts[i].get_absolute_url +
+                                        '">Перейти</a></div>' + '</div>';
+
+                                }
+                            },
+
+
+                            error: function(response) {
+                                console.log('не сработало(')
+                                // предупредим об ошибке
+                                console.log(response.responseJSON.errors)
+                            }
+                        });
+                        return false;
+                    });
+                })
+            </script>
+            {% endblock javascript %}
+
+            {% if request.user.is_authenticated %}
+
+                <div>
+            <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{{ user.avatar.url }}" alt="" width="32" height="32" class="rounded-circle me-2 ">
+                <strong>{{user.first_name}}</strong>
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1" data-popper-placement="top-start">
+                <li><a class="dropdown-item" href="{% url 'profile' user.pk %}">Personal Area <i class="fa-solid fa-circle-user"></i></i></a></li>
+                {% if user.is_superuser %}
+                <li><a class="dropdown-item" href="{% url 'post_list_moderation' %}">Posts for approval</a></li>
+                    {% endif %}
+                <li><a class="dropdown-item" href="{% url 'posts_create' %}">Suggest post <i class="fa-solid fa-plus"></i></a></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Exit <i class="fas fa-sign-out-alt"></i> </a>
+            </ul>
+        </div>
+
+            {% else %}
+                <li class="navbar-brand d-flex align-items-center navchik icons"> <a href="/login/vk-oauth2" class="line-effect1"><i class="fa-brands fa-vk"></i></a></li>
+                <li class="navbar-brand d-flex align-items-center navchik icons"> <a href="/login/google-oauth2" class="line-effect1"><i class="fa-brands fa-google"></i></a></li>
+                <li class="navbar-brand d-flex align-items-center navchik icons"> <a href="/login/github" class="line-effect1"><i class="fa-brands fa-github"></i></a></li>
+
+
+
+            <li class="navbar-brand d-flex align-items-center navchik"> <a class="navchik helpp register hoverr line-effect1" href="{% url 'authorization' %}"> Authorization </a></li>
+
+                {% endif %}
+
+
+        </div>
+    </div>
+
+
+    {% block body %} {% endblock %}
+
+
+</body>
+{% block footer %} {% endblock %}
+</html>

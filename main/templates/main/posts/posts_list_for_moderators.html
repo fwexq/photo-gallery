@@ -1,0 +1,20 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'main/css/posts/posts_list_for_moderators.css' %}">
+
+<head>
+    <title>Посты без модерации</title>
+</head>
+
+{% block body %}
+<p>Предложенные фотографии на конкурс</p>
+{% for post in posts %}
+<ul class="list-group" style="margin-top: 1vw;">
+    <li class="list-group-item"><a href="{% url 'posts_detail' post.pk %}">{{ post.title }}</a>
+        <a class="created-at-right">{{ post.created_at }}</a></li>
+</ul>
+
+{% empty %}
+<p>Нет объявлении без модерации</p>
+{% endfor %}
+
+{% endblock %}

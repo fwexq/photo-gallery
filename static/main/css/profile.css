@@ -1,0 +1,39 @@
+body {
+    padding-top: 56px;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    padding: 1rem 1rem;
+    margin-left: -15px;
+}
+
+.profile-otstup {
+    margin-left: 21px;
+    color: white;
+
+}
+
+.card_prof {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background: #202020;
+    /* background: -webkit-gradient(linear,left top, left bottom,from(#bca389),to(#84725f)); */
+    background: -o-linear-gradient(top, #bca389 0%, #84725f 100%);
+    /* background: linear-gradient(to bottom,#bca389 0%,#84725f 100%); */
+
+    border-radius: 0.25rem;
+}
+body {
+    font-family: 'Lobster', cursive;
+    font-size: 15px;
+    letter-spacing: 1.3px;
+    height: 100vh;
+    padding: 10px 0;
+    background: #f53434;
+    box-shadow: inset -15px -6px 20px 20px rgb(84 82 82);
+    background-color: #4e4c50!important;
+}

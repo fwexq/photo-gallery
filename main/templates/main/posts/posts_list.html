@@ -1,0 +1,75 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+</div>
+
+<head> {% block title %} Главная страница {% endblock %} </head>
+{% block body %}
+<div id="container">
+    <div class="cards" id="list-posts">
+        {% for post in posts %}
+        <div class="card">
+            <img src="{{ post.photo.url }}">
+            <div class="infos">
+                <div class="title"> {{ post.title }} <br>
+                </div>
+                <div class="sub">{{ post.description }}</div>
+                <br>
+            <i class="fa-solid fa-user-pen"></i> {{ post.author.first_name }}
+                <div class=""><i class="fa-solid fa-calendar"></i> {{ post.publicated_at}}</div>
+                <br>
+
+             {% if user.is_authenticated or backends.associated %}
+                <form action="{% url 'posts_like' %}" method="POST" class="ui form">
+                    {% csrf_token %}
+                    <input type="hidden" name="post_id" value="{{ post.id }}">
+                    <button type="submit" class="btn btn-sm btn-outline-secondary">
+                        {% if user not in post.liked.all %}
+                        <i class="fa-solid fa-heart white"></i>
+                        {% else %}
+                        <i class="fa-solid fa-heart"></i>
+                        {% endif %}
+                        <strong class="white"> {{ post.liked.all.count }} </strong>
+                    </button>
+                    <strong class="white"><i class="fa-solid fa-comments"></i> {{ post.comments.all.count }} </strong>
+                </form>
+
+             {% else %}
+                 <form action="{% url 'posts_like' %}" method="POST" class="ui form">
+                    {% csrf_token %}
+                    <input type="hidden" name="post_id" value="{{ post.id }}">
+                     <a data-tooltip="In order to like, you must be logged in">
+                        <i class="fa-solid fa-heart inactive" ></i>
+                        <strong class="inactive"> {{ post.liked.all.count }} </strong>
+                     </a>
+                    <strong class="white"><i class="fa-solid fa-comments"></i> {{ post.comments.all.count }} </strong>
+                </form>
+
+            {% endif %}
+
+            </div>
+            <div class="label a1"><a href="{{ post.get_absolute_url }}" class="View">go</a></div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+        <a class="border-a" href="?page=1">&laquo;to the first </a>
+        <a class="border-a" href="?page={{ page_obj.previous_page_number }}">previous </a>
+        {% endif %}
+        <span style="color:white;">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+        {% if page_obj.has_next %}
+        <a class="border-a" href="?page={{ page_obj.next_page_number }}">next</a>
+        <a class="border-a" href="?page={{ page_obj.paginator.num_pages }}">to the last&raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+
+
+{% endblock %}

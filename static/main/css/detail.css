@@ -1,0 +1,109 @@
+
+.strokeblock2{
+    margin-left: 2px;
+    margin-top: 8px;
+}
+
+.color {
+    background: red;
+    border: 2px solid #e6edf3!important;
+}
+
+.btn-outline-secondary {
+    color: #e91818;
+    border-color: #6c757d;
+}
+.bg-light {
+    background-color: #c59586!important;
+    /* border: 1px solid #4c768c!important; */
+    border-radius: 20px;
+    margin-top: 20px;
+    overflow: hidden;
+    margin-left: 150px;
+    margin-right: 150px;
+    -webkit-box-shadow: 0 9px 26px rgb(0 0 0);
+    opacity: 3px;
+    box-shadow: 19px -11px 2px #c595867d;
+}
+.btn-light {
+    color: #fff;
+    background-color: #c59586;
+    border-color: #aa8073;
+    padding-left: 10px;
+    margin-left: 35px;
+    margin-top: -35px;
+    border-radius: 10px;
+}
+
+p {
+    margin-top: 0;
+    margin-left: 10px;
+    color: #ffffff;
+}
+
+
+
+.btn-outline-secondary {
+    color: #df0b0b;
+    border-color: #2e0202;
+}
+a {
+    color: #8a675c;
+    font-size: 14px;
+    text-decoration: none!important;
+}
+
+.otstupdescriprion {
+    padding-top: 20px;
+}
+
+.otstuptitle {
+    margin-bottom: 15px;
+}
+
+.fordatapublish {
+    magin-left: 20px;
+}
+
+.card_det {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background: #c59586;
+    /* background: -webkit-gradient(linear,left top, left bottom,from(#bca389),to(#84725f)); */
+    background: -o-linear-gradient(top,#bca389 0%,#84725f 100%);
+    /* background: linear-gradient(to bottom,#bca389 0%,#84725f 100%); */
+    border: 0px;
+    border-radius: 4%;
+}
+
+.top_det {
+    width: 200px;
+    height: 200px;
+     -webkit-box-shadow: None;
+     box-shadow: None;
+}
+
+.col {
+    flex: 1 0 0%;
+    border: 2px solid #aa8073;
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+
+.bg-light {
+    background-color: #c59586!important;
+    /* border: 1px solid #4c768c!important; */
+    border-radius: 20px;
+    margin-top: 20px;
+    overflow: hidden;
+    margin-left: 150px;
+    margin-right: 150px;
+    -webkit-box-shadow: 0 9px 26px rgb(0 0 0);
+    opacity: 3px;
+    box-shadow: 19px -11px 2px #c595867d;
+}

@@ -1,0 +1,155 @@
+:root {
+    --background-color: #af71d3;
+    --border-color: #2c113e;
+}
+
+.btn-light-create-form {
+    color: #fff;
+    background-color: var(--background-color);
+    border: 1px solid #eeeced;
+    padding-left: 10px;
+    margin-left: 16px;
+    /* margin-left: 100px; */
+    margin-top: 0px;
+    border-radius: 10px;
+    float: left;
+}
+.form-control {
+    display: flex;
+    width: 50%;
+    margin-block: auto;
+    margin-left: 20px;
+    height: auto;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #d6a5f5;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 2px solid var(--background-color);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 15px;
+    margin: 15px;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+input, optgroup, select, textarea {
+    margin: 0;
+    margin-left: 21px;
+    font-size: inherit;
+    /* line-height: inherit; */
+}
+p {
+    margin-top: 0;
+    margin-left: 20px;
+    font-size: 20px;
+    color: #81e690;
+    width: auto;
+    animation-duration: 3s;
+    animation-name: slidein;
+    text-align: center;
+}
+
+@keyframes slidein {
+  from {
+    margin-left: 50%;
+    width: 100%;
+  }
+
+}
+body {
+    /* background-image: url(https://lh4.googleusercontent.com/-XplyTa1Za-I/VMSgIyAYkHI/AAAAAAAADxM/oL-rD6VP4ts/w1184-h666/Android-Lollipop-wallpapers-Google-Now-Wallpaper-2.png); */
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f7e4df!important;
+}
+
+.bg-light {
+    /* border: 2px solid #ffffff; */
+    border-radius: 20px;
+    overflow: hidden;
+    width: 35%;
+    margin: 65px auto;
+    opacity: 0.9;
+}
+
+::-webkit-scrollbar{
+    width: 15px;
+}
+
+::-webkit-scrollbar-track {
+    background: #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+    /* background: linear-gradient(100deg, #f32453, #ef7c39, #dbb51a, #db8e1a, #f32453); */
+    border-radius: 8px;
+    background: #9d71b6;
+    border: 5px solid #ffffff;
+}
+
+body {
+    background-image: url('https://mass-images.pro/files/preview/2/20/94e9665782f5cc9fdb51631af97198b3.png?1658865804078');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    font-family: 'Roboto', sans-serif;
+    /*background-color: #e7b2a2!important;*/
+}
+
+.btn-light {
+    color: #d1b9b9;
+    background-color: #d7a698;
+    border-color: #d7a698;
+    padding: 2px;
+    margin-left: 15px;
+}
+
+a{
+    color: #8a675c;
+    text-decoration: none;
+}
+
+.black {
+    background-color: red;
+}
+
+.btn-light {
+    color: #fff;
+    background-color: #ffffff;
+    border: 2px dotted#a16ac3;
+    border-radius: 10px;
+    padding: 6px;
+}
+
+.btn-light:hover {
+    color: red;
+    background-color: #ffffff;
+    border-color: #a16ac3;
+    border-radius: 10px;
+    padding: 6px;
+}
+
+a {
+    color: #5d5e5f;
+}
+
+.bg-light {
+    background-color: #a677c1!important;
+}
+
+a:hover {
+    color: #444242;
+}
+
+.btn-n:hover {
+    transition: 0.6s;
+    color: #ffffff;
+    background-color: #ffffff6b;
+}
