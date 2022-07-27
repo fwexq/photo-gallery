@@ -15,7 +15,7 @@ from .forms import *
 from main.utils import DataMixin
 from .models.post.models import Post
 from .serializers import PostSerializer
-
+from rest_framework.authtoken.models import Token
 
 class AuthorizationView(DataMixin, TemplateView):
     template_name = os.path.join('main/accounts', 'authorizations.html')
@@ -62,6 +62,48 @@ class ProfileView(ListView):
     model = CustomUser
     template_name = 'main/accounts/profile.html'
     context_object_name = 'prof'
+
+    # def post(self, request):
+    #     user = CustomUser.objects.get(id=request.user.id)
+    #     user1 = request.user
+    #     token = Token.objects.create(user=self.request.user)
+    #     user.api_key = token
+    #     user.save()
+
+
+
+
+        # total_visits = CustomUser.objects.get(pk=request.user.id)
+        # if total_visits:
+        #     total_visits = total_visits[0]
+        #     total_visits.count += 1
+        # else:
+        #     total_visits = CustomUser()
+        #     total_visits.count = 1
+        # total_visits.save()
+        #
+        # if 'HTTP_X_FORWARDED_FOR' in request.META:
+        #     client_ip = request.META['HTTP_X_FORWARDED_FOR']
+        #     client_ip = client_ip.split(",")[0]
+        # else:
+        #     client_ip = request.META['REMOTE_ADDR']
+        # # print(client_ip)
+        #
+        # ip_exist = CustomUser.objects.filter(ip=str(client_ip))
+        # if ip_exist:
+        #     ip = ip_exist[0]
+        #     ip.count += 1
+        # else:
+        #     ip = CustomUser()
+        #     ip.ip = client_ip
+        #     ip.count = 1
+        # ip.save()
+
+        # Увеличение сегодняшних посещений
+
+
+    # return render(request, 'main/accounts/profile.html', context={'day_visits': day_visits})
+
 
 
 class ProfileUpdateView(UpdateView):
@@ -334,7 +376,5 @@ class CreatePostView(CreateView, View):
     def get(self, request, *args, **kwargs):
         post_form = CreatePostForm()
         return render(request, 'main/posts/posts_create.html', {'post_form': post_form})
-
-
 
 

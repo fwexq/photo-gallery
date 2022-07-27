@@ -184,6 +184,7 @@ class UserUpdateForm(forms.ModelForm):
             "first_name": TextInput(attrs={'class': 'form-control', 'placeholder': 'Иван', 'style': 'width:27%'}),
             "last_name": TextInput(
                 attrs={'class': 'form-control', 'placeholder': 'Иванов', 'style': 'width:27%'}),
+
         }
 
     # def validate_not_empty(title, photo, description):

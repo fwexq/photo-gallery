@@ -5,7 +5,7 @@ from main.models.user.models import CustomUser
 from main.models.comment.models import Comment
 
 class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ('email', 'first_name', 'last_name', 'password', 'avatar', 'api_key', 'created_at', 'updated_at')
+    list_display = ('first_name', 'email', 'last_name', 'password', 'avatar', 'api_key', 'created_at', 'updated_at', 'ip', 'total_visits', 'day', 'day_visits', 'count')
 admin.site.register(CustomUser, CustomUserAdmin)
 
 

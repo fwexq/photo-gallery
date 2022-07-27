@@ -18,21 +18,27 @@
         <div class="col">
             <div class="col-lg-7">
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <h4 class="mt-3 mb-3 profile-otstup ">Профиль</h4>
 
+<button type="button" class="btn btn-light"><a href="{% url 'profile' pk=user.id %}">получить</a></button>
+
+<a class="visit">ключ{{ user.api_key }} </a>
             </div>
                 <div class="col">
             <div class="card_prof strokeblock strokeblock2">
                 <div class="card_prof-body">
                      {% if user.is_authenticated and not backends.associated %}
                          <input class="form-control" type="text" value="{{ user.first_name }}" placeholder="Ваше имя не указано" readonly>
+                         <input class="form-control" type="text" value="{{ user.last_name }}" placeholder="Ваша фамилия не указана" readonly>
                          <input class="form-control" type="text" value="{{ user.email }}" placeholder="Ваш email не указан" readonly>
-
-
+                             <a class="visits">За сегодня вы посещали сайт {{ user.count }} раз(а)</a>
+    <a class="visit">Ваш последний вход был {{ user.day }} </a>
                      {% elif backends.associated %}
                          <input class="form-control" type="text" value="{{ user.first_name }}" placeholder="Ваше имя не указано" readonly>
                          <input class="form-control" type="text" value="{{ user.last_name }}" placeholder="Ваша фамилия не указана" readonly>
                          <input class="form-control" type="text" value="{{ user.email }}" placeholder="Ваш email не указан" readonly>
+                          <a class="visits">За сегодня вы посещали сайт {{ user.count }} раз(а)</a><br>
+    <a class="visit">Ваш последний вход был {{ user.day }} </a>
+
                     {% else %}
 
                      {% endif %}
@@ -41,14 +47,15 @@
 
                     <img width="300" height="300" src='{% if user.avatar %}
                              {{ user.avatar.url }}{% else %}{% static 'main/image/users/default_avatar.jpg' %} {% endif %}'>
-                </div>
 
+                </div>
             </div>
                     <a class="btn btn-primary" href="{% url 'profile_update' %}">Редактировать</a>
                 </div>
             </div>
       </div>
     </div>
+
 </div>
 </div>
 
