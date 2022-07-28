@@ -187,6 +187,17 @@ class UserUpdateForm(forms.ModelForm):
 
         }
 
+class TokenForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['api_key']
+
+        widgets = {
+            "api_key": TextInput(attrs={'class': 'form-control'}),
+
+        }
+
+
     # def validate_not_empty(title, photo, description):
     #     if title == '':
     #         raise forms.ValidationError(

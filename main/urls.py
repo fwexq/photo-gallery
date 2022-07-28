@@ -4,6 +4,7 @@ from .views import *
 urlpatterns = [
 
     path('authorization/', AuthorizationView.as_view(), name='authorization'),
+    path('token/', TokenView.as_view(), name='token'),
     path('profile/<int:pk>/', ProfileView.as_view(), name='profile'),
     path('profile/update', ProfileUpdateView.as_view(), name='profile_update'),
     path('logout/', logoutuser, name='logout'),

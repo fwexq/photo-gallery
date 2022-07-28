@@ -57,21 +57,39 @@ class AuthorizationView(DataMixin, TemplateView):
                 return self.render_to_response(context)
         return self.render_to_response(context)
 
+class TokenView(View):
+    model = CustomUser
+    form_class = TokenForm
+
+    def post(self, request):
+        user = CustomUser.objects.get(id=request.user.id)
+
+
+        if user.api_key == '':
+            Token.objects.get(user_id=request.user.id).delete()
+            user.api_key = str(Token.objects.create(user=request.user))
+            user.save()
+        else:
+            user.api_key = ''
+            Token.objects.get(user_id=request.user.id).delete()
+            user.save()
+            user.api_key = str(Token.objects.create(user=request.user))
+            user.save()
+        return render(request, 'main/accounts/profile.html')
+
+    def get(self, request):
+        form = TokenForm()
+        return render(request, 'main/accounts/profile.html', {'form': form})
+
+
+    def get(self, request):
+        form = TokenForm()
+        return render(request, 'main/accounts/profile.html', {'form': form})
 
 class ProfileView(ListView):
     model = CustomUser
     template_name = 'main/accounts/profile.html'
     context_object_name = 'prof'
-
-    # def post(self, request):
-    #     user = CustomUser.objects.get(id=request.user.id)
-    #     user1 = request.user
-    #     token = Token.objects.create(user=self.request.user)
-    #     user.api_key = token
-    #     user.save()
-
-
-
 
         # total_visits = CustomUser.objects.get(pk=request.user.id)
         # if total_visits:

@@ -19,9 +19,14 @@
             <div class="col-lg-7">
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
-<button type="button" class="btn btn-light"><a href="{% url 'profile' pk=user.id %}">получить</a></button>
+      <form action="{% url 'token' %}" method="POST">
+    {% csrf_token %}
+          <input type="text" value="{{ user.api_key }}">
 
-<a class="visit">ключ{{ user.api_key }} </a>
+          <button type="submit" class="btn btn-light">получить</button>
+
+      </form>
+
             </div>
                 <div class="col">
             <div class="card_prof strokeblock strokeblock2">
