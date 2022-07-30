@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    background-image: url("../../image/background/posts_confirm_delete.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: 'Cormorant SC', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.container {
+    max-width: 1320px;
+    margin-top: 30px;
+    border: 2px solid #9de69d;
+    opacity: 0.9;
+    /* left: -50px; */
+    width: 23%;
+    border-radius: 10px;
+    background: #191919;
+    /* display: table-cell; */
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-weight: bolder;
+    color: #dbd3d3;
+    text-align: center;
+}
+
+.verification {
+    border-radius: 10px;
+    FONT-WEIGHT: 200;
+}
+
+.OK {
+    background-color: #9de69d;
+    /* float: left; */
+}
+
+.back {
+    background-color: #c47f7f;
+    color: black;
+    border-bottom: white;
+    /* float: right; */
+}
