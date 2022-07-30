@@ -27,7 +27,7 @@
     </div>
     {% endif %}
 
-    {% if request.user.is_staff or request.user.is_superuser and post_obj.moderation_status == 'NOT_MODERATED' %}
+    {% if post_obj.moderation_status == 'NOT_MODERATED' and request.user.is_staff or request.user.is_superuser %}
     <div class="card-header">
         <a href="{% url 'valid' det=post_obj.id %}" class="valid">Опубликовать</a>
         <a href="{% url 'invalid' det=post_obj.id %}" class="invalid">Отклонить</a>

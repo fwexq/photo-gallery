@@ -21,14 +21,6 @@
             <div class="col-lg-7">
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
-      <form action="{% url 'token' %}" method="POST">
-    {% csrf_token %}
-          <input type="text" value="{{ user.api_key }}">
-
-          <button type="submit" class="btn btn-light">получить</button>
-
-      </form>
-
             </div>
                 <div class="col">
             <div class="card_prof strokeblock strokeblock2">
@@ -37,15 +29,24 @@
                          <input class="form-control" type="text" value="{{ user.first_name }}" placeholder="Ваше имя не указано" readonly>
                          <input class="form-control" type="text" value="{{ user.last_name }}" placeholder="Ваша фамилия не указана" readonly>
                          <input class="form-control" type="text" value="{{ user.email }}" placeholder="Ваш email не указан" readonly>
-                             <a class="visits">За сегодня вы посещали сайт {{ user.count }} раз(а)</a>
-    <a class="visit">Ваш последний вход был {{ user.day }} </a>
+                             <a class="visits">За сегодня вы посещали сайт {{ user.count }} раз(а)</a><br>
+                            <a class="visit">Ваш последний вход был {{ user.day }} </a>
+                               <form action="{% url 'token' %}" method="POST">
+                            {% csrf_token %}
+                                  <input type="text" value="{{ user.api_key }}">
+                                  <button type="submit" class="btn btn-light token-key-bt">Сгенерировать АПИ-ключ</button>
+                              </form>
                      {% elif backends.associated %}
                          <input class="form-control" type="text" value="{{ user.first_name }}" placeholder="Ваше имя не указано" readonly>
                          <input class="form-control" type="text" value="{{ user.last_name }}" placeholder="Ваша фамилия не указана" readonly>
                          <input class="form-control" type="text" value="{{ user.email }}" placeholder="Ваш email не указан" readonly>
                           <a class="visits">За сегодня вы посещали сайт {{ user.count }} раз(а)</a><br>
-    <a class="visit">Ваш последний вход был {{ user.day }} </a>
-
+                            <a class="visit">Ваш последний вход был {{ user.day }} </a>
+                               <form action="{% url 'token' %}" method="POST">
+                            {% csrf_token %}
+                                  <input type="text" value="{{ user.api_key }}">
+                                  <button type="submit" class="btn btn-light token-key-bt">Сгенерировать АПИ-ключ</button>
+                              </form>
                     {% else %}
 
                      {% endif %}

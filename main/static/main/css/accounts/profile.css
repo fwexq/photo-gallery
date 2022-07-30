@@ -190,3 +190,17 @@ a:hover {
     /* float: right; */
     /* text-align: center; */
 }
+
+.token-key-bt {
+    display: contents;
+}
+
+input {
+    margin: 0;
+    /* font-family: inherit; */
+    font-size: inherit;
+    line-height: inherit;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid #ffffffb0;
+}

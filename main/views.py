@@ -65,7 +65,6 @@ class TokenView(View):
         user = CustomUser.objects.get(id=request.user.id)
 
         if user.api_key == '':
-            Token.objects.get(user_id=request.user.id).delete()
             user.api_key = str(Token.objects.create(user=request.user))
             user.save()
         else:
