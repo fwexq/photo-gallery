@@ -18,16 +18,15 @@
 {% block body %}
 <div class="my-div-class">
 
-    {% if request.user == post_obj.author.id %}
+    {% if request.user.id == post_obj.author.id %}
     <div class="card-header">
         <a href="{% url 'posts_update' det=post_obj.id %}">Редактировать</a>
         {#                <button  data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-danger">Удалить</button>#}
-        <a href="{% url 'invalid' det=post_obj.id %}">Удалить</a>
+        <a href="{% url 'delete' det=post_obj.id %}">Удалить</a>
     </div>
     {% endif %}
 
-    {% if post_obj.moderation_status == 'NOT_MODERATED' %}
-
+    {% if request.user.is_staff or request.user.is_superuser and post_obj.moderation_status == 'NOT_MODERATED' %}
     <div class="card-header">
         <a href="{% url 'valid' det=post_obj.id %}" class="valid">Опубликовать</a>
         <a href="{% url 'invalid' det=post_obj.id %}" class="invalid">Отклонить</a>

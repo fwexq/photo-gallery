@@ -265,7 +265,7 @@ class PostUpdateView(UpdateView):
         post.save()
     #
     #         # return render(request, 'main/posts_update.html', {'form': form})
-        return redirect('posts_detail', det=post.id)
+        return redirect('posts_list')
     #     return redirect('profile')
     #
     #
@@ -320,16 +320,8 @@ class PostUpdateView(UpdateView):
     #     return redirect('posts_detail', pk=self.kwargs.get('pk'))
 
 
-# class PostDeleteView(DeleteView):
-#     model = Post
-#     pk_url_kwarg = 'det'
-#     template_name = 'main/posts_detail.html'
-#
-#     def post(self, request, *args, **kwargs):
-#         post = get_object_or_404(Post, pk=kwargs['det'])
-#         post.delete()
-#         return reverse(request, 'main/posts_detail.html', {post: 'post'})
-#
+
+
 # class PostValidView(APIView):
 #     permission_classes = [IsAuthenticated, ]
 #
