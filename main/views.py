@@ -64,7 +64,6 @@ class TokenView(View):
     def post(self, request):
         user = CustomUser.objects.get(id=request.user.id)
 
-
         if user.api_key == '':
             Token.objects.get(user_id=request.user.id).delete()
             user.api_key = str(Token.objects.create(user=request.user))
@@ -86,42 +85,11 @@ class TokenView(View):
         form = TokenForm()
         return render(request, 'main/accounts/profile.html', {'form': form})
 
+
 class ProfileView(ListView):
     model = CustomUser
     template_name = 'main/accounts/profile.html'
     context_object_name = 'prof'
-
-        # total_visits = CustomUser.objects.get(pk=request.user.id)
-        # if total_visits:
-        #     total_visits = total_visits[0]
-        #     total_visits.count += 1
-        # else:
-        #     total_visits = CustomUser()
-        #     total_visits.count = 1
-        # total_visits.save()
-        #
-        # if 'HTTP_X_FORWARDED_FOR' in request.META:
-        #     client_ip = request.META['HTTP_X_FORWARDED_FOR']
-        #     client_ip = client_ip.split(",")[0]
-        # else:
-        #     client_ip = request.META['REMOTE_ADDR']
-        # # print(client_ip)
-        #
-        # ip_exist = CustomUser.objects.filter(ip=str(client_ip))
-        # if ip_exist:
-        #     ip = ip_exist[0]
-        #     ip.count += 1
-        # else:
-        #     ip = CustomUser()
-        #     ip.ip = client_ip
-        #     ip.count = 1
-        # ip.save()
-
-        # Увеличение сегодняшних посещений
-
-
-    # return render(request, 'main/accounts/profile.html', context={'day_visits': day_visits})
-
 
 
 class ProfileUpdateView(UpdateView):
@@ -263,12 +231,19 @@ class PostUpdateView(UpdateView):
             post.moderation_status = 'NOT_MODERATED'
             post.publicated_at = timezone.now()
         post.save()
-    #
-    #         # return render(request, 'main/posts_update.html', {'form': form})
         return redirect('posts_list')
-    #     return redirect('profile')
-    #
-    #
+
+class PostDeleteView(DeleteView):
+    model = Post
+    pk_url_kwarg = 'det'
+    template_name = 'main/posts/posts_confirm_delete.html'
+
+    success_url = reverse_lazy('posts_list')
+    # def post(self, request, *args, **kwargs):
+    #     post = Post.objects.get(pk=kwargs['det'])
+    #     post.delete()
+    #     return redirect('posts_list')
+
     # def post_update(self, request, **kwargs):
     #     post = get_object_or_404(Post, pk=kwargs['det'])
     #
@@ -318,7 +293,6 @@ class PostUpdateView(UpdateView):
     #
     # def get_success_url(self):
     #     return redirect('posts_detail', pk=self.kwargs.get('pk'))
-
 
 
 

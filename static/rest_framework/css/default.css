@@ -24,7 +24,7 @@ h2, h3 {
 }
 
 .format-option {
-  font-family: Menlo, Consolas, "Andale Mono", "Lucida Console", monospace;
+    font-family: 'Cormorant SC', sans-serif;
 }
 
 .button-form {

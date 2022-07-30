@@ -14,7 +14,7 @@ a single block in the template.
 }
 
 #generic-content-form textarea {
-  font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+    font-family: 'Cormorant SC', sans-serif;
   font-size: 80%;
 }
 

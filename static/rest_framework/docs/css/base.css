@@ -30,7 +30,7 @@ pre.highlight code {
 
 .sidebar {
   overflow: auto;
-  font-family: verdana, sans-serif;
+    font-family: 'Cormorant SC', sans-serif;
   font-size: 12px;
   font-weight: 200;
   background-color: #2e353d;
@@ -80,7 +80,7 @@ pre.highlight code {
 
 .sidebar .menu-list ul :not(collapsed) .arrow:before,
 .sidebar .menu-list li :not(collapsed) .arrow:before {
-  font-family: FontAwesome;
+    font-family: 'Cormorant SC', sans-serif;
   content: "\f078";
   display: inline-block;
   padding-left: 10px;
@@ -131,7 +131,7 @@ pre.highlight code {
 
 .sidebar .menu-list ul .sub-menu li a:before,
 .sidebar .menu-list li .sub-menu li a:before {
-  font-family: FontAwesome;
+    font-family: 'Cormorant SC', sans-serif;
   font-size: 14px;
   font-weight: bold;
   content: "\f105";

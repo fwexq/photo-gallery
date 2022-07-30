@@ -124,7 +124,7 @@
 .input label,
 .button button {
     padding-left: 10px;
-   font-family: 'Roboto', sans-serif;
+    font-family: 'Cormorant SC', sans-serif;
    font-size: 24px;
    color: rgba(0, 0, 0, 0.8);
    font-weight: 300;
@@ -369,7 +369,7 @@ body {
    background-size: cover;
    background-repeat: no-repeat;
    min-height: 100vh;
-   font-family: 'Roboto', sans-serif;
+    font-family: 'Cormorant SC', sans-serif;
 }
 
 body,
