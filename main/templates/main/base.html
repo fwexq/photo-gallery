@@ -80,14 +80,18 @@
 
 
                                     block.innerHTML += '<div class="card">' + '<img src="' + response.posts[i].photo + '">' + '<div class="infos">' + '<div class="title">' + response.posts[i].title  +
-                                        'Автор: ' + response.posts[i].author + '</div' + '<div class="sub">' + response.posts[i].created_at + '</div' +
-                                        '<br>' + '<div class="sub">' + response.posts[i].description + '</div>' + '<form action="/posts_like/" method="POST" class="ui form">' +
+                                        '</div>' + '<div class="sub">' + response.posts[i].description + '</div>' + '<br>' + '<i class="fa-solid fa-user-pen"></i>' +
+                                        response.posts[i].author.first_name + '<div class=""><i class="fa-solid fa-calendar"></i>' + response.posts[i].publicated_at + '</div>' + '<br>' +
+                                        '{% if user.is_authenticated or backends.associated %}' + '<form action="/posts_like/" method="POST" class="ui form">' +
                                         '{% csrf_token %}' + '<input type="hidden" name="post_id" value="' +  response.posts[i].id + '">' + '<button type="submit" class="btn btn-sm btn-outline-secondary">' +
-                                        '{% if user not in post.liked.all %}' + '<i class="fa-solid fa-heart white"></i>' + '{% else %}' + '<i class="fa-solid fa-heart"></i>' +
-                                        '{% endif %}' + '<strong class="white">' + response.posts[i].liked + '</strong>' + '</button>' +
-                                        '<strong class="white"><i class="fa-solid fa-comments"></i>' + response.posts[i].comments.all.count + '</strong' +
-                                        '</form>' + '</div>' + '<div class="label"><a href="' + response.posts[i].get_absolute_url +
-                                        '">Перейти</a></div>' + '</div>';
+                                        '{% if user not in post.liked.all %}' + '<i class="fa-solid fa-heart white"></i>' + '{% else %}' + '<i class="fa-solid fa-heart"></i>' + '{% endif %}' + '<strong class="white">' +
+                                        response.posts[i].liked + '</strong>' + '</button>' + '<strong class="white"><i class="fa-solid fa-comments"></i>' + response.posts[i].comments + '</strong' +
+                                        '</form>' +
+                                        '{% else %}' + '<form action="/posts_like/" method="POST" class="ui form">' + '{% csrf_token %}' + '<input type="hidden" name="post_id" value="' +  response.posts[i].id + '">' +
+                                        '<a data-tooltip="In order to like, you must be logged in">' + '<i class="fa-solid fa-heart inactive" ></i>' + '<strong class="inactive">' + response.posts[i].liked + '</strong>' +
+                                        '</a>' + '<strong class="white"><i class="fa-solid fa-comments"></i>' + response.posts[i].comments + '</strong>' + '</form>' + '{% endif %}' + '</div>' +  '<div class="label a1"><a href="' +
+                                        response.posts[i].get_absolute_url + '" class="View">go</a></div>' + '</div>';
+
 
                                 }
                             },
@@ -96,7 +100,7 @@
                             error: function(response) {
                                 console.log('не сработало(')
                                 // предупредим об ошибке
-                                console.log(response.responseJSON.errors)
+
                             }
                         });
                         return false;
