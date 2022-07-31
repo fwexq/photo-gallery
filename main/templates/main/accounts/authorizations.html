@@ -20,7 +20,7 @@
         <form class="form sign-in" method="post" id="form">
             {% csrf_token %}
             <div class="box">
-                <div class="title">Авторизация</div>
+                <div class="title">Authorization</div>
                 <div class="input">
                     {{sign_in_form.email}}
                     <span class="spin"></span>
@@ -30,17 +30,17 @@
                     <span class="spin"></span>
                 </div>
                 <div class="button login">
-                    <button type="submit" class="submit" id="submit-form" name="action" value="sign_in"><span>Войти</span> <i class="fa fa-check"></i></button>
+                    <button type="submit" class="submit" id="submit-form" name="action" value="sign_in"><span>To come in</span> <i class="fa fa-check"></i></button>
                 </div>
 
-                <a class="pass-forgot">Модераторы никогда не попросят Ваш пароль</a>
+                <a class="pass-forgot">Moderators will never ask for your password</a>
             </div>
         </form>
 
 
     <div class="overbox">
         <div class="material-button alt-2"><span class="shape"></span></div>
-        <div class="title">Регистрация</div>
+        <div class="title">Registration</div>
         <form class="form sign-up" method="post">
             {%csrf_token%}
             <div class="input">

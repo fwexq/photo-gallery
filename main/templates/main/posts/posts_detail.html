@@ -99,33 +99,33 @@
         </div>
 
 
-{#    <div class="album py-5 bg-light-c">#}
-{#        <form action="{% url 'comments' det=post_obj.id %}" method="post">#}
-{#            {% csrf_token %}#}
-{#            <input type="hidden" name="post_id" value="{{ post_obj.id }}">#}
-{#            {{ comment_form.as_p }}#}
-{#        {% if user.is_authenticated or backends.associated or request.user.is_staff %}#}
-{#            <button type="button" class="btn btn-light-c">Send</button>#}
-{#        </form>#}
-{#        {% else %}#}
-{#            <a data-tooltip="You must be logged in to post a comment">#}
-{#        <button type="button" class="btn btn-light-c" disabled>Send</button>#}
-{#            </a>#}
-{#            </form>#}
-{#        {% endif %}#}
-{##}
-{##}
-{##}
-{#        {% for comment in comments %}#}
-{#        <div class="image-c ">#}
-{#            <a class="d-flex align-items-center text-white text-decoration-none">#}
-{#                <img src="{{ comment.user.avatar.url }}" alt="" width="50" height="50" class="rounded-circle me-2">#}
-{#                <strong class="first-name ">{{comment.user.first_name}}</strong>#}
-{#            </a></div>#}
-{#        <p class="text ">{{ comment.text }}</p>#}
-{#        <p class="created_at ">{{ comment.created_at }}</p>#}
-{#        {% endfor %}#}
-{#    </div>#}
+    <div class="album py-5 bg-light-c">
+        <form action="{% url 'comments' det=post_obj.id %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="post_id" value="{{ post_obj.id }}">
+            {{ comment_form.as_p }}
+        {% if user.is_authenticated or backends.associated or request.user.is_staff %}
+            <button type="button" class="btn btn-light-c">Send</button>
+        </form>
+        {% else %}
+            <a data-tooltip="You must be logged in to post a comment">
+        <button type="button" class="btn btn-light-c" disabled>Send</button>
+            </a>
+            </form>
+        {% endif %}
+
+
+
+        {% for comment in comments %}
+        <div class="image-c ">
+            <a class="d-flex align-items-center text-white text-decoration-none">
+                <img src="{{ comment.user.avatar.url }}" alt="" width="50" height="50" class="rounded-circle me-2">
+                <strong class="first-name ">{{comment.user.first_name}}</strong>
+            </a></div>
+        <p class="text ">{{ comment.text }}</p>
+        <p class="created_at ">{{ comment.created_at }}</p>
+        {% endfor %}
+    </div>
 
 
 </div>

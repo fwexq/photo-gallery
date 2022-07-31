@@ -177,6 +177,35 @@ class PostModerationListView(ListView):
         return posts
 
 
+class PostRejectedView(ListView):
+    model = Post
+    template_name = 'main/posts/posts_rejected.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        posts = Post.objects.filter(moderation_status='INVALID', author=self.request.user).order_by('-created_at')
+        return posts
+
+
+class PostPublishedView(ListView):
+    model = Post
+    template_name = 'main/posts/posts_published.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        posts = Post.objects.filter(moderation_status='VALID', author=self.request.user).order_by('-created_at')
+        return posts
+
+
+class PostModeratedView(ListView):
+    model = Post
+    template_name = 'main/posts/posts_moderated.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        posts = Post.objects.filter(moderation_status='NOT_MODERATED', author=self.request.user).order_by('-created_at')
+        return posts
+
 class PostValidView(View):
     def get(self, request, **kwargs):
         post = get_object_or_404(Post, pk=kwargs['det'])
