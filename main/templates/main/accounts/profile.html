@@ -15,7 +15,7 @@
 {% block body %}
 
 <div class="album py-5 bg-light">
-<button type="button" class="btn btn-light"><a href="/">Назад</a></button>
+<button type="button" class="btn btn-light"><a href="/">Back</a></button>
     <div class="container">
         <div class="col">
             <div class="col-lg-7">
@@ -26,27 +26,34 @@
             <div class="card_prof strokeblock strokeblock2">
                 <div class="card_prof-body">
                      {% if user.is_authenticated and not backends.associated %}
-                         <input class="form-control" type="text" value="{{ user.first_name }}" placeholder="Ваше имя не указано" readonly>
-                         <input class="form-control" type="text" value="{{ user.last_name }}" placeholder="Ваша фамилия не указана" readonly>
-                         <input class="form-control" type="text" value="{{ user.email }}" placeholder="Ваш email не указан" readonly>
-                             <a class="visits">За сегодня вы посещали сайт {{ user.count }} раз(а)</a><br>
-                            <a class="visit">Ваш последний вход был {{ user.day }} </a>
+                         <input class="form-control" type="text" value="{{ user.first_name }}" placeholder="First_name not provided" readonly>
+                         <input class="form-control" type="text" value="{{ user.last_name }}" placeholder="Last_name not provided" readonly>
+                         <input class="form-control" type="text" value="{{ user.email }}" placeholder="Email not provided" readonly>
+                             <a class="visits">Site visited today {{ user.count }} times </a><br>
+                            <a class="visit">The last entry was {{ user.day }} </a>
+
+                         {% if user.id == request.user.id %}
                                <form action="{% url 'token' %}" method="POST">
                             {% csrf_token %}
                                   <input type="text" value="{{ user.api_key }}">
-                                  <button type="submit" class="btn btn-light token-key-bt">Сгенерировать АПИ-ключ</button>
+                                  <button type="submit" class="btn btn-light token-key-bt">Generate API key</button>
                               </form>
+                             {% endif %}
+
                      {% elif backends.associated %}
-                         <input class="form-control" type="text" value="{{ user.first_name }}" placeholder="Ваше имя не указано" readonly>
-                         <input class="form-control" type="text" value="{{ user.last_name }}" placeholder="Ваша фамилия не указана" readonly>
-                         <input class="form-control" type="text" value="{{ user.email }}" placeholder="Ваш email не указан" readonly>
-                          <a class="visits">За сегодня вы посещали сайт {{ user.count }} раз(а)</a><br>
-                            <a class="visit">Ваш последний вход был {{ user.day }} </a>
+                         <input class="form-control" type="text" value="{{ user.first_name }}" placeholder="First_name not provided" readonly>
+                         <input class="form-control" type="text" value="{{ user.last_name }}" placeholder="Last_name not provided" readonly>
+                         <input class="form-control" type="text" value="{{ user.email }}" placeholder="Email not provided" readonly>
+                             <a class="visits">Site visited today {{ user.count }} times</a><br>
+                            <a class="visit">The last entry was {{ user.day }} </a>
+                         {% if user.id == request.user.id %}
                                <form action="{% url 'token' %}" method="POST">
                             {% csrf_token %}
                                   <input type="text" value="{{ user.api_key }}">
-                                  <button type="submit" class="btn btn-light token-key-bt">Сгенерировать АПИ-ключ</button>
+                                  <button type="submit" class="btn btn-light token-key-bt">Generate API key</button>
                               </form>
+                             {% endif %}
+
                     {% else %}
 
                      {% endif %}
@@ -55,14 +62,14 @@
 
                     <img width="300" height="300" src='{% if user.avatar %}
                              {{ user.avatar.url }}{% else %}{% static 'main/image/users/default_avatar.jpg' %} {% endif %}'>
-
+{% if user.id == request.user.id %}
 <a href="{% url 'posts_rejected' %}">Viewing your posts rejected</a>
                 <a href="{% url 'posts_publised' %}">Viewing your posts published</a>
                     <a href="{% url 'posts_moderated' %}">Viewing your posts moderated</a>
-
+{% endif %}
                 </div>
             </div>
-                    <a class="btn btn-primary" href="{% url 'profile_update' %}">Редактировать</a>
+                    <a class="btn btn-primary" href="{% url 'profile_update' %}">Edit</a>
 
 
                 </div>

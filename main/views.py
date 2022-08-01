@@ -92,6 +92,11 @@ class ProfileView(ListView):
     template_name = 'main/accounts/profile.html'
     context_object_name = 'prof'
 
+    def get(self, request, *args, **kwargs):
+        user = CustomUser.objects.get(pk=kwargs['pk'])
+        return render(request, 'main/accounts/profile.html', {'user': user})
+
+
 
 class ProfileUpdateView(UpdateView):
     model = get_user_model()
@@ -404,12 +409,12 @@ class StaffList(View):
     #     return staff
 
 
-    def post(self, request, *args, **kwargs):
+    def put(self, request, *args, **kwargs):
         post_form = CreateJobTitle(request.POST)
         if post_form.is_valid():
             post_form.save()
-            return render(request, 'main/posts/posts_create.html', {'post_form': post_form})
-        return redirect('posts_list')
+            return redirect('posts_list')
+
 
     def get(self, request):
         form = CreateJobTitle()

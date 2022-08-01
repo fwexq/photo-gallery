@@ -16,7 +16,7 @@
 {#</ul>#}
 
 
-    <form action="{% url 'staff_list' %}" method="post">
+    <form action="{% url 'staff_list' %}" method="put">
     {% csrf_token %}
     {{ form }}
         <button type="submit" class="btn-n btn-light-create-form">Предолжить запись</button>

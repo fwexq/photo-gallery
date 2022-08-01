@@ -188,11 +188,11 @@ class CreateJobTitle(forms.ModelForm):
     # test = forms.ChoiceField(choices=[
     # (item.pk, item) for item in Item.objects.all()])
 
-    email = forms.MultipleChoiceField(choices=[(item.pk, item) for item in CustomUser.objects.all()])
+    id = forms.MultipleChoiceField(choices=[(item.pk, item) for item in CustomUser.objects.all()])
 
     class Meta:
         model = CustomUser
-        fields = ('email', 'is_superuser', 'is_staff')
+        fields = ('id', 'is_superuser', 'is_staff')
 
 
 
