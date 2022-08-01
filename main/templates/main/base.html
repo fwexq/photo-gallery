@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Indie+Flower&display=swap" rel="stylesheet">
 
-    <link href="{% static 'fonts/serifgothicitcbybt_bold.ttf' %}" rel="stylesheet" media="screen">
+{#    <link href="{% static 'fonts/serifgothicitcbybt_bold.ttf' %}" rel="stylesheet" media="screen">#}
 
 {#<link rel="stylesheet" href="{% static 'main/css/style.css' %}">#}
 {#    <link rel="stylesheet" href="{% static 'main/css/posts_detail.css' %}">#}
@@ -118,12 +118,13 @@
             </a>
 
             <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1" data-popper-placement="top-start">
-                <li><a class="dropdown-item" href="{% url 'profile' user.pk %}">Personal Area <i class="fa-solid fa-circle-user"></i></i></a></li>
+                <li><a class="dropdown-item" href="{% url 'profile' user.pk %}">Personal Area <i class="fa-solid fa-circle-user"></i></a></li>
                 {% if user.is_superuser %}
                 <li><a class="dropdown-item" href="{% url 'post_list_moderation' %}">Posts for approval</a></li>
                     {% endif %}
                 <li><a class="dropdown-item" href="{% url 'posts_create' %}">Suggest post <i class="fa-solid fa-plus"></i></a></li>
                 <li><a class="dropdown-item" href="{% url 'logout' %}">Exit <i class="fas fa-sign-out-alt"></i> </a>
+                <li><a class="dropdown-item" href="{% url 'staff_list' %}">Staff list</a>
             </ul>
         </div>
 

@@ -55,6 +55,7 @@
 
                     <img width="300" height="300" src='{% if user.avatar %}
                              {{ user.avatar.url }}{% else %}{% static 'main/image/users/default_avatar.jpg' %} {% endif %}'>
+
 <a href="{% url 'posts_rejected' %}">Viewing your posts rejected</a>
                 <a href="{% url 'posts_publised' %}">Viewing your posts published</a>
                     <a href="{% url 'posts_moderated' %}">Viewing your posts moderated</a>

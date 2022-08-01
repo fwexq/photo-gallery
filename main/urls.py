@@ -7,7 +7,6 @@ urlpatterns = [
     path('token/', TokenView.as_view(), name='token'),
     path('profile/<int:pk>/', ProfileView.as_view(), name='profile'),
     path('profile/update', ProfileUpdateView.as_view(), name='profile_update'),
-    path('logout/', logoutuser, name='logout'),
 
     path('', ListPostView.as_view(), name='posts_list'),
     path('create/', CreatePostView.as_view(), name='posts_create'),
@@ -24,6 +23,9 @@ urlpatterns = [
     path('invalid/<int:det>/', PostInvalidView.as_view(), name='invalid'),
 
     path('search/', Search.as_view(), name='search'),
+    path('logout/', logoutuser, name='logout'),
+
+    path('staff_list/', StaffList.as_view(), name='staff_list'),
 
 ]
-# path('delete/<int:pk>/', PostDeleteView.as_view(), name='delete'),
+

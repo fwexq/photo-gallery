@@ -1,4 +1,6 @@
 import os
+
+from django.db.models.functions import Lower
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth import login, logout, get_user_model
@@ -109,11 +111,6 @@ class ProfileUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('profile', kwargs={'pk': self.object.pk})
-
-
-def logoutuser(request):
-    logout(request)
-    return redirect('posts_list')
 
 
 class ListPostView(DataMixin, ListView):
@@ -391,3 +388,29 @@ class CreatePostView(CreateView, View):
         return render(request, 'main/posts/posts_create.html', {'post_form': post_form})
 
 
+def logoutuser(request):
+    logout(request)
+    return redirect('posts_list')
+
+
+class StaffList(View):
+    model = CustomUser
+    context_object_name = 'title'
+    template_name = 'main/job_title/title.html'
+    form_class = CreateJobTitle
+
+    # def get_queryset(self):
+    #     staff = CustomUser.objects.filter(is_superuser=True, is_staff=True ).order_by(Lower('last_name'))
+    #     return staff
+
+
+    def post(self, request, *args, **kwargs):
+        post_form = CreateJobTitle(request.POST)
+        if post_form.is_valid():
+            post_form.save()
+            return render(request, 'main/posts/posts_create.html', {'post_form': post_form})
+        return redirect('posts_list')
+
+    def get(self, request):
+        form = CreateJobTitle()
+        return render(request, 'main/job_title/title.html', {'form': form})

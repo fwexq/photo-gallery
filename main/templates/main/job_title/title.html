@@ -1,0 +1,25 @@
+{% load static %}
+<link rel="stylesheet" href="{% static "main/css/job_title/title.css" %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Indie+Flower&display=swap" rel="stylesheet">
+<head>
+    <title>Посты без модерации</title>
+</head>
+
+{#<p>Rejected posts</p>#}
+{#{% for job in title %}#}
+{#<ul class="list-group" style="margin-top: 1vw;">#}
+{#    <li class="list-group-item"><a href="{% url 'profile' pk=user.id %}">{% if user.is_superuser %} Администратор - {% endif %}#}
+{#                                                                         {% if user.is_staff == True and user.is_superuser == False %} Модератор - {% endif %}#}
+{#                                                                                                  {{ job.first_name }}</a></li>#}
+{#</ul>#}
+
+
+    <form action="{% url 'staff_list' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+        <button type="submit" class="btn-n btn-light-create-form">Предолжить запись</button>
+</form>
+{#{% endfor %}#}
+

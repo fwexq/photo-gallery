@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
 ]
 
-
+SITE_ID=1  #https://stackoverflow.com/questions/16068518/django-site-matching-query-does-not-exist
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -1,12 +1,10 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
-# from django.contrib.auth.models import User
 from django.forms import ModelForm, TextInput, Textarea
-
 from main.models import CustomUser, Post
-from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate
 from .models import Comment
+
 
 class FormValidation:
     def __init__(self, cleaned_data, user=None) -> None:
@@ -59,7 +57,6 @@ class FormValidation:
         return self.cleaned_data
 
 
-
 class RegisterUserForm(UserCreationForm):
     first_name = forms.CharField(label='', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your name'}))
     email = forms.EmailField(label='', widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'example@mail.ru'}))
@@ -70,7 +67,6 @@ class RegisterUserForm(UserCreationForm):
         model = CustomUser
         fields = ('first_name', 'email', 'password1')
 
-
     def save(self, commit=True):
         user = super().save(commit=False)
         user.first_name = self.cleaned_data.get('first_name')
@@ -80,9 +76,6 @@ class RegisterUserForm(UserCreationForm):
         if commit:
             user.save()
         return user
-
-
-
 
 
 class LoginUserForm(AuthenticationForm):
@@ -106,13 +99,6 @@ class LoginUserForm(AuthenticationForm):
 
         return self.cleaned_data
 
-# class UserProfileForm(UserChangeForm):
-#     avatar = forms.ImageField(widget=forms.FileInput(), required=False)
-#
-#     class Meta:
-#         model = User
-#         fields = ('email', 'first_name', 'last_name')
-
 
 class CommentForm(forms.ModelForm):
 
@@ -128,7 +114,6 @@ class CommentForm(forms.ModelForm):
         }
 
 
-
 class CreatePostForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
@@ -136,7 +121,6 @@ class CreatePostForm(ModelForm):
         self.fields['title'].label = ''
         self.fields['description'].label = ''
         self.fields['photo'].label = ''
-
 
     class Meta:
         model = Post
@@ -187,6 +171,7 @@ class UserUpdateForm(forms.ModelForm):
 
         }
 
+
 class TokenForm(forms.ModelForm):
     class Meta:
         model = CustomUser
@@ -198,40 +183,16 @@ class TokenForm(forms.ModelForm):
         }
 
 
-    # def validate_not_empty(title, photo, description):
-    #     if title == '':
-    #         raise forms.ValidationError(
-    #             params={'title': title},
-    #         )
-    #     if title == '':
-    #         raise forms.ValidationError(
-    #             params={'title': title},
-    #         )
-    #     if title == '':
-    #         raise forms.ValidationError(
-    #             params={'title': title},
-    #         )
+class CreateJobTitle(forms.ModelForm):
+
+    # test = forms.ChoiceField(choices=[
+    # (item.pk, item) for item in Item.objects.all()])
+
+    email = forms.MultipleChoiceField(choices=[(item.pk, item) for item in CustomUser.objects.all()])
+
+    class Meta:
+        model = CustomUser
+        fields = ('email', 'is_superuser', 'is_staff')
 
 
 
-# class CommentForm(ModelForm):
-#     text = forms.CharField(label='Текст', widget=forms.TextInput(attrs={'class': 'form-control'}))
-#
-#     class Meta:
-#         model = Comment
-#         fields = ('name', 'text')
-
-
- # def clean_confirm_password(self):
- #        confirm_password = self.cleaned_data.get("confirm_password")
- #        password = self.cleaned_data.get("password")
- #
- #        if not confirm_password:
- #            raise forms.ValidationError("Confirm password does not exists")
- #
- #        if password != confirm_password:
- #            raise forms.ValidationError(
- #                "Password and Confirmed password does not match"
- #            )
- #
- #        return self.cleaned_data
