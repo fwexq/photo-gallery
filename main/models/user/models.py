@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.urls import reverse
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import AbstractUser
 from django.db import models
@@ -41,3 +42,6 @@ class CustomUser(AbstractUser):
         db_table = 'users'
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
+
+    def get_absolute_url_user(self):
+        return reverse('profile', kwargs={'pk': self.pk})

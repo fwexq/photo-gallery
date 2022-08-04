@@ -1,4 +1,7 @@
 {% load static %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" href="{% static "main/css/job_title/title.css" %}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -7,19 +10,16 @@
     <title>Посты без модерации</title>
 </head>
 
-{#<p>Rejected posts</p>#}
-{#{% for job in title %}#}
-{#<ul class="list-group" style="margin-top: 1vw;">#}
-{#    <li class="list-group-item"><a href="{% url 'profile' pk=user.id %}">{% if user.is_superuser %} Администратор - {% endif %}#}
-{#                                                                         {% if user.is_staff == True and user.is_superuser == False %} Модератор - {% endif %}#}
-{#                                                                                                  {{ job.first_name }}</a></li>#}
-{#</ul>#}
+<p>Administrations profiles</p>
+
+<button type="button" onclick="history.back(-2); return false; " class="btn btn-light">Back</button>
+
+<ul class="list-group" style="margin-top: 1vw;">
+{% for job in title %}
+    <li class="list-group-item"><a href="{{ job.get_absolute_url_user }} ">{{ job.email }} </a></li>
+{% endfor %}
+</ul>
 
 
-    <form action="{% url 'staff_list' %}" method="put">
-    {% csrf_token %}
-    {{ form }}
-        <button type="submit" class="btn-n btn-light-create-form">Предолжить запись</button>
-</form>
-{#{% endfor %}#}
+
 

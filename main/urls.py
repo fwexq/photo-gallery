@@ -14,9 +14,14 @@ urlpatterns = [
     path('delete/<int:det>/', PostDeleteView.as_view(), name='posts_delete'),
     path('detail/<int:det>/', DetailPostView.as_view(), name='posts_detail'),
     path('post/moderation/', PostModerationListView.as_view(), name='post_list_moderation'),
-    path('post/rejected/', PostRejectedView.as_view(), name='posts_rejected'),
-    path('post/publised/', PostPublishedView.as_view(), name='posts_publised'),
-    path('post/moderated/', PostModeratedView.as_view(), name='posts_moderated'),
+
+
+    # path('post/<int:det/>', UpdatePostView.as_view(), name='upd_post'),
+    path('posts/<str:status>/', PostRejectedView.as_view(), name='account_posts_list'),
+    # path('post/<str:status>/', PostRejectedView.as_view(), name='posts_publised'),
+    # path('post/<str:status>/', PostRejectedView.as_view(), name='posts_moderated'),
+
+
     path('detail/<int:det>/comments/', CommentsView.as_view(), name='comments'),
     path('likes/', LikesView.as_view(), name='posts_like'),
     path('valid/<int:det>/', PostValidView.as_view(), name='valid'),
@@ -26,6 +31,7 @@ urlpatterns = [
     path('logout/', logoutuser, name='logout'),
 
     path('staff_list/', StaffList.as_view(), name='staff_list'),
+    path('create_staff/', CreateStaff.as_view(), name='create_staff'),
 
 ]
 

@@ -13,7 +13,7 @@
 </head>
 {% block body %}
     <div class="album py-5 bg-light ">
-    <button type="button" class="btn btn-light"><a href="/">Назад</a></button>
+    <button type="button" class="btn btn-light" onclick="history.back(-2); return false;">Back</button>
         <br><br>
 
 <form action="{% url 'profile_update' %}" method="post" enctype="multipart/form-data">

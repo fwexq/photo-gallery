@@ -6,45 +6,45 @@
 .list-group-item:last-child {
     border-bottom-right-radius: inherit;
     border-bottom-left-radius: inherit;
-    border-radius: 15px;
-
+    border-radius: 4px;
 }
 
 .list-group-item {
     position: relative;
     display: block;
     padding: 0.5rem 1rem;
-    color: #212529;
+    color: #333334;
     text-decoration: none;
-    background-color: #fff;
-    border: 2px solid #b28779;
+    border: 1px solid #ffffff8a;
 }
 
 a {
     text-decoration: None;
-    color: #53413a;
+    color: #c1c1c1;
     font-weight: bold;
-    font-style: italic;
+
+    font-family: 'Cormorant SC', sans-serif;
 }
 
 body {
-    background: #e7b2a2;
+    background: #000000;
+    font-family: 'Cormorant SC', sans-serif;
 }
 
 *before, *after {
     box-sizing: border-box;
 }
 li:hover {
-    background: #b28779;
+    background: #ffffff;
     opacity: 0.6;
-    border: none;
-
+    /* border: none; */
+    transition: 0.77s;
 }
 
 p {
     font-size: 24px;
     margin-left: 40px;
-    color: #53413a;
+    color: #ffffff;
 }
 
 .created-at-right {

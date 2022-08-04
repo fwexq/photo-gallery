@@ -23,10 +23,10 @@
 {#    <link href="{% static 'fonts/serifgothicitcbybt_bold.ttf' %}" rel="stylesheet" media="screen">#}
 
 {#<link rel="stylesheet" href="{% static 'main/css/style.css' %}">#}
-{#    <link rel="stylesheet" href="{% static 'main/css/posts_detail.css' %}">#}
+{#    <link rel="stylesheet" href="{% static 'main/css/detail.css' %}">#}
 {#    <link rel="stylesheet" href="{% static 'main/css/profile.css' %}">#}
 {#    <link rel="stylesheet" href="{% static 'main/css/accounts/login.css' %}">#}
-    <link rel="stylesheet" href="{% static 'main/css/posts/posts_list.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/posts/list.css' %}">
 
 </head>
 
@@ -121,10 +121,12 @@
                 <li><a class="dropdown-item" href="{% url 'profile' user.pk %}">Personal Area <i class="fa-solid fa-circle-user"></i></a></li>
                 {% if user.is_superuser %}
                 <li><a class="dropdown-item" href="{% url 'post_list_moderation' %}">Posts for approval</a></li>
+                    <li><a class="dropdown-item" href="{% url 'create_staff' %}">Create staff</a>
                     {% endif %}
                 <li><a class="dropdown-item" href="{% url 'posts_create' %}">Suggest post <i class="fa-solid fa-plus"></i></a></li>
                 <li><a class="dropdown-item" href="{% url 'logout' %}">Exit <i class="fas fa-sign-out-alt"></i> </a>
                 <li><a class="dropdown-item" href="{% url 'staff_list' %}">Staff list</a>
+
             </ul>
         </div>
 

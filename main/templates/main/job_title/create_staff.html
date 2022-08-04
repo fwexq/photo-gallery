@@ -1,0 +1,15 @@
+{% load static %}
+<link rel="stylesheet" href="{% static "main/css/job_title/title.css" %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Indie+Flower&display=swap" rel="stylesheet">
+<head>
+    <title>Посты без модерации</title>
+</head>
+
+
+    <form action="{% url 'create_staff' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+        <button type="submit" class="btn-n btn-light-create-form">Appoint</button>
+</form>

@@ -15,7 +15,17 @@
 {% block body %}
 
 <div class="album py-5 bg-light">
-<button type="button" class="btn btn-light"><a href="/">Back</a></button>
+<button type="button" onclick="history.back(-2); return false; " class="btn btn-light">Back</button>
+
+    {% if request.user != user.is_superuser and not user.is_staff %}
+        <h1 class="yellow">USER</h1>
+    {% elif request.user == user.is_staff and not user.is_superuser %}
+        <h1 class="green">MODERATOR</h1>
+    {% else %}
+        <h1 class="red">ADMINISTRATOR</h1>
+    {% endif %}
+
+
     <div class="container">
         <div class="col">
             <div class="col-lg-7">
@@ -29,8 +39,8 @@
                          <input class="form-control" type="text" value="{{ user.first_name }}" placeholder="First_name not provided" readonly>
                          <input class="form-control" type="text" value="{{ user.last_name }}" placeholder="Last_name not provided" readonly>
                          <input class="form-control" type="text" value="{{ user.email }}" placeholder="Email not provided" readonly>
-                             <a class="visits">Site visited today {{ user.count }} times </a><br>
-                            <a class="visit">The last entry was {{ user.day }} </a>
+                             <a class="visits colors">Site visited today {{ user.count }} times </a><br>
+                            <a class="visit color">The last entry was {{ user.day }} </a>
 
                          {% if user.id == request.user.id %}
                                <form action="{% url 'token' %}" method="POST">
@@ -44,8 +54,8 @@
                          <input class="form-control" type="text" value="{{ user.first_name }}" placeholder="First_name not provided" readonly>
                          <input class="form-control" type="text" value="{{ user.last_name }}" placeholder="Last_name not provided" readonly>
                          <input class="form-control" type="text" value="{{ user.email }}" placeholder="Email not provided" readonly>
-                             <a class="visits">Site visited today {{ user.count }} times</a><br>
-                            <a class="visit">The last entry was {{ user.day }} </a>
+                             <a class="visits colors">Site visited today {{ user.count }} times</a><br>
+                            <a class="visit color">The last entry was {{ user.day }} </a>
                          {% if user.id == request.user.id %}
                                <form action="{% url 'token' %}" method="POST">
                             {% csrf_token %}
@@ -62,14 +72,17 @@
 
                     <img width="300" height="300" src='{% if user.avatar %}
                              {{ user.avatar.url }}{% else %}{% static 'main/image/users/default_avatar.jpg' %} {% endif %}'>
+
 {% if user.id == request.user.id %}
-<a href="{% url 'posts_rejected' %}">Viewing your posts rejected</a>
-                <a href="{% url 'posts_publised' %}">Viewing your posts published</a>
-                    <a href="{% url 'posts_moderated' %}">Viewing your posts moderated</a>
+                <p></p><a href="{% url 'account_posts_list' status='rejected'%}" class="status">Rejected posts <i class="fa-solid fa-xmark"></i></a></p>
+                <p><a href="{% url 'account_posts_list' status='published'%}"class="status">Published posts <i class="fa-solid fa-check"></i></a></p>
+                <p><a href="{% url 'account_posts_list' status='moderated' %}"class="status">Moderated posts <i class="fa-solid fa-list-check"></i></a></p>
 {% endif %}
                 </div>
             </div>
+                 {% if user.id == request.user.id %}
                     <a class="btn btn-primary" href="{% url 'profile_update' %}">Edit</a>
+                 {% endif %}
 
 
                 </div>

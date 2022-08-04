@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
-from django.forms import ModelForm, TextInput, Textarea
+from django.forms import ModelForm, TextInput, Textarea, CharField, FileInput, HiddenInput
 from main.models import CustomUser, Post
 from django.contrib.auth import authenticate
 from .models import Comment
@@ -127,10 +127,11 @@ class CreatePostForm(ModelForm):
         fields = ('title', 'description', 'photo')
 
         widgets = {
-            "title": TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите название', 'style':'width:27%',
+            "title": TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter the title', 'style':'width:27%',
                                       'style':'border-radius:10px',  'style':'width: auto'}),
-            "description": Textarea(attrs={'class': 'form-control', 'placeholder': 'Введите описание', 'style': 'height:8%',
+            "description": Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter the description', 'style': 'height:8%',
                                            'style':'border-radius: 10px', 'style':'width: auto'}),
+            "photo": HiddenInput,
 
         }
 
@@ -147,8 +148,8 @@ class PostForm(forms.ModelForm):
         fields = ('title', 'description', 'photo')
 
         widgets = {
-            "title": TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите название', 'style': 'width:27%'}),
-            "description": Textarea(attrs={'class': 'form-control', 'placeholder': 'Введите описание', 'style': 'height:8%'}),
+            "title": TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter the title', 'style': 'width:27%'}),
+            "description": Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter the description', 'style': 'height:8%'}),
 
         }
 

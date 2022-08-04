@@ -11,15 +11,13 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
-
-from dotenv import load_dotenv
-import os
 
 load_dotenv()
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -36,7 +34,6 @@ ALLOWED_HOSTS = ['127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -49,7 +46,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
 ]
 
-SITE_ID=1  #https://stackoverflow.com/questions/16068518/django-site-matching-query-does-not-exist
+# https://stackoverflow.com/questions/16068518/django-site-matching-query-does-not-exist
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -155,7 +152,6 @@ AUTHENTICATION_BACKENDS = (
 
 )
 
-
 SOCIAL_AUTH_VK_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_VK_OAUTH2_KEY')
 SOCIAL_AUTH_VK_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_VK_OAUTH2_SECRET')
 SOCIAL_AUTH_VK_OAUTH2_API_VERSION = os.getenv('SOCIAL_AUTH_VK_OAUTH2_API_VERSION')
@@ -163,7 +159,6 @@ LOGIN_ERROR_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 SOCIAL_AUTH_VK_OAUTH2_IGNORE_DEFAULT_SCOPE = True  # вытащить защищенные права
 SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email', 'photos', 'status']
-
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
@@ -174,13 +169,9 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'openid'
 ]
 
-
-
-
 SOCIAL_AUTH_GITHUB_KEY = os.getenv('SOCIAL_AUTH_GITHUB_KEY ')
 SOCIAL_AUTH_GITHUB_SECRET = os.getenv('SOCIAL_AUTH_GITHUB_SECRET')
 # LOGIN_URL = '/auth/login/github'
-
 
 
 SOCIAL_AUTH_PIPELINE = (
@@ -194,7 +185,6 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.user.user_details',
     'main.pipelines.save_user_profile',
 )
-
 
 # LOGGING = {
 #         'version': 1,

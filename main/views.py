@@ -1,11 +1,10 @@
 import os
-
 from django.db.models.functions import Lower
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth import login, logout, get_user_model
 from django.db.models import Q
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils import timezone
@@ -121,7 +120,7 @@ class ProfileUpdateView(UpdateView):
 class ListPostView(DataMixin, ListView):
     paginate_by = 4
     model = Post
-    template_name = 'main/posts/posts_list.html'
+    template_name = 'main/posts/list.html'
     context_object_name = 'posts'
 
     def get_queryset(self):
@@ -136,7 +135,7 @@ class DetailPostView(DataMixin, View):
         user = request.user.id
         comment_form = CommentForm()
         return render(request,
-                      'main/posts/posts_detail.html',
+                      'main/posts/detail.html',
                       {'post_obj': post_obj,
                        'user': user,
                        'comments': comments,
@@ -155,7 +154,7 @@ class DetailPostView(DataMixin, View):
         else:
             comment_form = CommentForm()
         return render(request,
-                      'main/posts/posts_detail.html',
+                      'main/posts/detail.html',
                       {'post_obj': post_obj,
                        'comments': comments,
                        'comment_form': comment_form})
@@ -163,7 +162,7 @@ class DetailPostView(DataMixin, View):
 
 class PostModerationListView(ListView):
     model = Post
-    template_name = 'main/posts/posts_list_for_moderators.html'
+    template_name = 'main/posts/list_for_moderators.html'
     context_object_name = 'posts'
     extra_context = {
         'title': 'Объявления без модерации'
@@ -183,9 +182,20 @@ class PostRejectedView(ListView):
     model = Post
     template_name = 'main/posts/posts_rejected.html'
     context_object_name = 'posts'
+    POST_STATUS_MAPPER = {'rejected': 'INVALID', 'published': 'VALID', 'moderated': 'NOT_MODERATED'}
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['posts_type'] = self.kwargs.get('status')
+        return context
+
 
     def get_queryset(self):
-        posts = Post.objects.filter(moderation_status='INVALID', author=self.request.user).order_by('-created_at')
+        moderation_status = self.POST_STATUS_MAPPER.get(self.kwargs.get('status'))
+        if moderation_status:
+            posts = Post.objects.filter(moderation_status=moderation_status, author=self.request.user).order_by('-created_at')
+        else:
+            posts = Post.objects.none()
         return posts
 
 
@@ -227,26 +237,9 @@ class PostInvalidView(View):
         return redirect('posts_list')
 
 
-# class PostDeleteView(DeleteView):
-#     model = Post
-#
-#     def dispatch(self, request, *args, **kwargs):
-#         if self.request.user != self.get_object().user:
-#             return redirect('posts_detail', pk=kwargs['det'])
-#         return super().dispatch(request, *args, **kwargs)
-#
-#     def get_success_url(self):
-#         return reverse('posts_list')
-#
-#     def post(self, request, *args, **kwargs):
-#         post = self.get_object()
-#         post.delete()
-#         return redirect(self.get_success_url())
-
-
 class PostUpdateView(UpdateView):
     model = Post
-    template_name = 'main/posts/posts_update.html'
+    template_name = 'main/posts/update.html'
     form_class = PostForm
     context_object_name = 'post'
     pk_url_kwarg = 'det'
@@ -263,92 +256,27 @@ class PostUpdateView(UpdateView):
         post.save()
         return redirect('posts_list')
 
+
 class PostDeleteView(DeleteView):
     model = Post
     pk_url_kwarg = 'det'
-    template_name = 'main/posts/posts_confirm_delete.html'
+    template_name = 'main/posts/confirm_delete.html'
 
     success_url = reverse_lazy('posts_list')
-    # def post(self, request, *args, **kwargs):
-    #     post = Post.objects.get(pk=kwargs['det'])
-    #     post.delete()
-    #     return redirect('posts_list')
 
-    # def post_update(self, request, **kwargs):
-    #     post = get_object_or_404(Post, pk=kwargs['det'])
-    #
-    #     if request.method == 'GET':
-    #         if request.user.id is not post.author:
-    #             return redirect('posts_detail', pk=kwargs['det'])
-    #         form = PostForm(instance=post)
-    #         return form
-    #         return('get')
-    #
-    #     if request.method == 'POST':
-    #         form = PostForm(request.FILES, request.POST, instance=post)
-    #         if form.is_valid():
-    #             form.moderation_status = 'NOT_MODERATED'
-    #             form.publicated_at = timezone.now()
-    #             form.save()
-    #         return redirect('posts_detail', pk=kwargs['det'])
-    #         return ('post')
-    #     print('not post')
-
-
-
-    # def post(self, request, pk, *args, **kwargs):
-    #     post = get_object_or_404(Post, author_id=pk)
-    #
-    #     post_form = PostForm(request.POST, request.FILES, instance=post)
-    #
-    #     if post_form.is_valid():
-    #         post_form.save()
-    #         post_form.moderation_status = 'NOT_MODERATED'
-    #         post_form.publicated_at = timezone.now()
-    #
-    #         post_form.save()
-    #         return render(request, 'main/posts_update.html', {'post_form': post_form})
-    #     return redirect('profile')
-
-    # def dispatch(self, request, *args, **kwargs):
-    #     if self.request.user != self.get_object().author:
-    #         return redirect('posts_detail', pk=self.kwargs.get('pk'))
-    #     return super().dispatch(request, *args, **kwargs)
-
-    # def form_valid(self, form):
-    #     post = form.save(commit=False)
-    #     post.moderation_status = 'NOT_MODERATED'
-    #     post.save()
-    #     return redirect(self.get_success_url())
-    #
-    # def get_success_url(self):
-    #     return redirect('posts_detail', pk=self.kwargs.get('pk'))
-
-
-
-# class PostValidView(APIView):
-#     permission_classes = [IsAuthenticated, ]
-#
-#     def get(self, request, *args, **kwargs):
-#         posts = get_object_or_404(Post, pk=kwargs['det'])
-#         print(posts)
-#         posts.moderation_status = 'VALID'
-#         posts.publicated_at = timezone.now()
-#         posts.save()
-#         return redirect('posts_list')
 
 class Search(generics.ListAPIView):
     def get(self, request, *args, **kwargs):
         res_search = self.request.query_params.get('search', "")
         results = Post.objects.filter((Q(title__icontains=res_search)
-                                     | Q(description__icontains=res_search)
-                                     | Q(author__icontains=res_search)))
+                                     | Q(description__icontains=res_search)))
+                                     # | Q(author__icontains=res_search)))
         return Response({'posts': PostSerializer(results, many=True).data})
 
 
 class LikesView(DataMixin, DetailView):
     model = Post
-    template_name = 'main/posts/posts_detail.html'
+    template_name = 'main/posts/detail.html'
     pk_url_kwarg = 'like'
     context_object_name = 'det_post'
 
@@ -361,8 +289,13 @@ class LikesView(DataMixin, DetailView):
             post_obj.liked.remove(user)
         else:
             post_obj.liked.add(user)
-        return redirect('posts_list')
 
+        data = {
+            'likes': post_obj.liked.all().count()
+        }
+        return JsonResponse(data, safe=False)
+
+        return redirect('posts_list')
 
 class CommentsView(View):
     form_class = CommentForm
@@ -374,7 +307,7 @@ class CommentsView(View):
 
 class CreatePostView(CreateView, View):
     form_class = CreatePostForm
-    template_name = 'main/posts/posts_create.html'
+    template_name = 'main/posts/create.html'
 
     def post(self, request, *args, **kwargs):
         post_form = CreatePostForm(request.POST, request.FILES)
@@ -386,11 +319,11 @@ class CreatePostView(CreateView, View):
                 request,
                 "Пост был успешно отправлен на модерацию"
             )
-            return render(request, 'main/posts/posts_create.html', {'post_form': post_form})
+            return render(request, 'main/posts/create.html', {'post_form': post_form})
 
     def get(self, request, *args, **kwargs):
         post_form = CreatePostForm()
-        return render(request, 'main/posts/posts_create.html', {'post_form': post_form})
+        return render(request, 'main/posts/create.html', {'post_form': post_form})
 
 
 def logoutuser(request):
@@ -398,16 +331,22 @@ def logoutuser(request):
     return redirect('posts_list')
 
 
-class StaffList(View):
+class StaffList(ListView):
     model = CustomUser
     context_object_name = 'title'
     template_name = 'main/job_title/title.html'
+
+
+    def get_queryset(self):
+        staff = CustomUser.objects.filter(is_superuser=True, is_staff=True).order_by(Lower('last_name'))
+        return staff
+
+
+class CreateStaff(View):
+    model = CustomUser
+    context_object_name = 'title'
+    template_name = 'main/job_title/create_staff.html'
     form_class = CreateJobTitle
-
-    # def get_queryset(self):
-    #     staff = CustomUser.objects.filter(is_superuser=True, is_staff=True ).order_by(Lower('last_name'))
-    #     return staff
-
 
     def put(self, request, *args, **kwargs):
         post_form = CreateJobTitle(request.POST)
@@ -418,4 +357,5 @@ class StaffList(View):
 
     def get(self, request):
         form = CreateJobTitle()
-        return render(request, 'main/job_title/title.html', {'form': form})
+        return render(request, 'main/job_title/create_staff.html', {'form': form})
+

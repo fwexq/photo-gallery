@@ -23,7 +23,7 @@
 #
 #     def process(self):
 #         post_form = CreatePostService()
-#         return render(self.request, 'main/posts_create.html', {'post_form': post_form})
+#         return render(self.request, 'main/create.html', {'post_form': post_form})
 #
 #     def post_process(self):
 #         active_user = self.request.user
@@ -38,5 +38,5 @@
 #                 self.request,
 #                 "Пост был успешно добавлен!"
 #             )
-#         return render(self.request, 'main/posts_create.html', {'post_form': post_form})
+#         return render(self.request, 'main/create.html', {'post_form': post_form})
 #

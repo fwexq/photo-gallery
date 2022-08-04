@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.contrib.auth import logout
 from django.urls import path, include
 from compet import settings
 
@@ -24,7 +23,7 @@ urlpatterns = [
     path('', include('main.urls')),
     path('', include('social_django.urls')),
     # path('ajax/', include('ajax.urls'))
-    #path('', include('social_django.urls', namespace='social'))
+    # path('', include('social_django.urls', namespace='social'))
 ]
 
 if settings.DEBUG:

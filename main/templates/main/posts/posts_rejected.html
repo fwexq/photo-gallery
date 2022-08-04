@@ -1,13 +1,15 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'main/css/posts/posts_rejected.css' %}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Indie+Flower&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'main/css/posts/posts_rejected.css' %}">
+
+
 <head>
-    <title>Посты без модерации</title>
+    <title>Статус</title>
 </head>
 
-<p>Rejected posts</p>
+<p>{{ posts_type|title }} posts</p>
 {% for post in posts %}
 <ul class="list-group" style="margin-top: 1vw;">
     <li class="list-group-item"><a href="{% url 'posts_detail' post.pk %}">{{ post.title }}</a>
@@ -15,6 +17,6 @@
 </ul>
 
 {% empty %}
-<p>You haven't a rejected posts</p>
+<p>You haven't a {{ posts_type }} posts</p>
 {% endfor %}
 

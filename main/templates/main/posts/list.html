@@ -20,7 +20,7 @@
                 <br>
 
              {% if user.is_authenticated or backends.associated %}
-                <form action="{% url 'posts_like' %}" method="POST" class="ui form">
+                <form action="{% url 'posts_like' %}" method="POST" class="ui form" class="like-form" id="{{ post.id }}">
                     {% csrf_token %}
                     <input type="hidden" name="post_id" value="{{ post.id }}">
                     <button type="submit" class="btn btn-sm btn-outline-secondary">
